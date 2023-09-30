@@ -1,0 +1,57 @@
+- Each observation is created for the person who books the rooms or for each persons who stays at the hotel? Is it a record for the reservation or for the customer? For example, if there are rooms with Cribs, how can the person be with age 4? Without supervision alone in a room?
+
+- When is the calculation for RoomNights and PersonNights done? Is it in the moment of the reservation? Or in Check-in? For example, a person that book a reservation and then does not show up, will the RoomNights be 0?
+
+
+OUTLIERS:
+Once you have used k-means clustering to identify clusters in your data, you can use the cluster assignments of the existing data points to classify new observations. The general process to classify a new observation using k-means clustering is as follows:
+
+Obtain the cluster centroids: After clustering the existing data, you will have identified k clusters and the centroid of each cluster. These centroids represent the center of each cluster.
+
+Measure the distance between the new observation and each centroid: To classify a new observation, you need to measure its distance to each centroid. You can use any distance metric, but the most common one is the Euclidean distance. The distance metric should be the same as the one used in the k-means clustering algorithm.
+
+Assign the new observation to the nearest cluster: Once you have measured the distances between the new observation and each centroid, you can assign it to the nearest cluster based on the minimum distance. This cluster assignment will determine the classification of the new observation.
+
+Here is the pseudocode for this process:
+
+vbnet
+Copy code
+Input: 
+- New observation x
+- Cluster centroids c_1, c_2, ..., c_k
+
+Output:
+- Cluster assignment for x
+
+1. For each centroid c_i:
+   - Calculate the distance d(x, c_i) between x and c_i
+2. Assign x to the cluster with the closest centroid:
+   - Cluster(x) = argmin_i d(x, c_i)
+3. Return Cluster(x)
+Note that it is important to use the same feature scaling and normalization techniques used during the clustering process to preprocess the new observation before classifying it.
+
+
+
+
+
+
+
+
+Professor:
+. some reservations are not paid
+. same docID and different names can also happen
+. for the duplicates we should sum the lines
+. each observation is created for each person who stays at the hotel
+. leadtime is only registered when we do a booking
+. check errors in people that never checked in (not trust the age and nationality)
+. people that have made a profile with us but for 1 year never booked, we can remove them
+. if the customer never checked in the nationality can be wrong
+. remove from the general segmentation the customers who have all of the booking variables = 0, but we address them to a general marketing approach because they can be potential customers
+
+
+DEPLOYMENT:
+. idea to improve: have booking id to identify groups that book together
+. sugerir uma forma diferente de inserir dados
+. base de dados melhor feita, não permitir de todo que seja criada uma pessoa sem o documento, ser restrita no aspeto de duplicados (para não termos varias linhas para a mesma pessoa)
+. define standards for the documents provided (to be sure that the same person does not have multiple profiles)
+. we deleted the children present in dataset (less than 12 years) because we cannot do any marketing approach to them. Also, if we had the variable to link the children with their parents, we would keep these observations and we could develop more marketing towards them.
